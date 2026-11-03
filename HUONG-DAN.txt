@@ -1,0 +1,16 @@
+HANH KPI - ung dung PWA (ban 2)
+
+A. CAI APP LEN DIEN THOAI
+1. Dua thu muc nay (tru Code.gs) len hosting HTTPS mien phi (GitHub Pages, Netlify Drop, Cloudflare Pages...).
+   Thu nhanh o may: python3 -m http.server 8080 trong thu muc nay, roi mo http://localhost:8080
+2. Mo link tren dien thoai: Android (Chrome) menu > Cai dat ung dung; iPhone (Safari) Chia se > Them vao Man hinh chinh.
+3. Chay offline sau lan mo dau tien. Du lieu luu trong may; nho "Tai file sao luu" o tab Cai dat.
+
+B. DONG BO 2 CHIEU VOI GOOGLE SHEET (khoang 10-15 giay khi co mang)
+1. Mo Google Sheet HANH 2026 > Tien ich mo rong > Apps Script.
+2. Xoa code mac dinh, dan toan bo file Code.gs. Doi TOKEN (dong 9) thanh mat khau cua ban. Ten tab mac dinh la 'MIX 1 NEW'; neu ban doi ten tab thi sua SHEET (dong 8).
+3. Trien khai > Trien khai moi > loai Ung dung web. Thuc thi voi tu cach: Toi. Quyen truy cap: Bat ky ai. Cap quyen khi duoc hoi.
+4. Sao chep dia chi Web App (ket thuc bang /exec).
+5. Trong app: Cai dat > Dong bo Google Sheet > dan dia chi + mat khau > Luu va dong bo.
+Luu y: neu sua Code.gs sau nay, phai Trien khai > Quan ly trien khai > Sua > Phien ban moi.
+Mat khau chi nam trong may ban va trong Code.gs, khong nam trong file sao luu.
