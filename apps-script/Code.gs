@@ -9,7 +9,7 @@
  *   - Thu quá hạn: điền từ dưới lên, nằm phía trên các dòng Thanh lý.
  *   - Ngoại lệ: điền từ dưới lên, nằm phía trên các dòng Thu quá hạn. Cột E được ghi số POS quy đổi
  *     (đã nhân hệ số tùy chỉnh trong app); các kiểu khác giữ nguyên công thức ở cột E.
- *   - NTU: app chỉ ghi Tiền thu (K), POS đã thu (J), Hệ số (Q). Hồ sơ được nhận diện bằng số HĐ;
+ *   - NTU: app sửa Tiền thu (K), POS đã thu (J), Mindue (L), Hệ số (Q); có thể thêm hồ sơ mới vào dòng trống. Hồ sơ được nhận diện bằng số HĐ;
  *     sau mỗi lần ghi, bảng NTU được sắp xếp POS tăng dần từ trên xuống.
  *   - Mọi lệnh ghi đều kiểm tra lại tên khách hoặc số HĐ của dòng; không khớp thì bỏ qua, không ghi nhầm.
  */
@@ -21,7 +21,8 @@ var CFG = {
 var CUST = {n: 1, k: 2, cof: 3, non: 4, pe: 5};
 /* NTU: app chỉ GHI posThu, tien, he. hd/n/pos/mind chỉ đọc. Không đụng cột R trở đi (bảng kiểu thu). */
 var NTU = {hd: 7, n: 8, pos: 9, posThu: 10, tien: 11, mind: 12, he: 17};
-var NTU_WRITE = {posThu: 1, tien: 1, he: 1};
+var NTU_WRITE = {posThu: 1, tien: 1, he: 1, mind: 1};        /* sửa hồ sơ có sẵn */
+var NTU_ADD = {hd: 1, n: 1, pos: 1, mind: 1, posThu: 1, tien: 1, he: 1}; /* thêm hồ sơ mới từ app */
 var SETTINGS = {tNON: 'Target tiền NON', tCOF: 'Target tiền COF', tNTU: 'Target NTU', ntuOK: 'NTU CIC OK', dep: 'Số người phụ thuộc'};
 var NL = 'Ngoại lệ';
 
@@ -201,14 +202,23 @@ function finalizeRow_(sh, L, row, f, tpl) {
   }
 }
 
-function setField_(sh, list, row, f, v) {
+function setField_(sh, list, row, f, v, isAdd) {
   var col = (list === 'cust' ? CUST : NTU)[f];
   if (!col || f === 'pe') return;
-  if (list === 'ntu' && !NTU_WRITE[f]) return;
+  if (list === 'ntu' && !(isAdd ? NTU_ADD : NTU_WRITE)[f]) return;
   var c = sh.getRange(row, col);
   if (v === '' || v == null) { c.clearContent(); return; }
+  if (f === 'hd') { c.setNumberFormat('@'); c.setValue(String(v)); return; }
   if (f === 'n' || f === 'k') { c.setValue(String(v)); return; }
   c.setValue(Number(v));
+}
+
+function freeNtuRow_(sh, L) {
+  var n = L.ntuEnd - L.ntuStart + 1;
+  if (n <= 0) throw new Error('Bảng NTU trống');
+  var v = sh.getRange(L.ntuStart, 7, n, 2).getValues();
+  for (var i = 0; i < n; i++) if (norm_(v[i][0]) === '' && norm_(v[i][1]) === '') return L.ntuStart + i;
+  throw new Error('Hết dòng trống trong bảng NTU');
 }
 
 function findNtuRow_(sh, L, hd, hint) {
@@ -238,14 +248,29 @@ function apply_(sh, patches) {
         for (f in p.f) setField_(sh, 'ntu', row, f, p.f[f]);
       }
     } else if (p.t === 'a') {
-      if (p.l !== 'cust') continue; /* hồ sơ NTU chỉ nhập bên Sheet */
+      if (p.l === 'ntu') {
+        var hd0 = norm_(p.f.hd);
+        if (!hd0) { skipped++; continue; }
+        var ex = findNtuRow_(sh, L, hd0, 0);
+        if (ex) { for (f in p.f) setField_(sh, 'ntu', ex, f, p.f[f], false); map[p.tmp] = ex; continue; } /* đã có: chỉ cập nhật */
+        row = freeNtuRow_(sh, L);
+        for (f in p.f) setField_(sh, 'ntu', row, f, p.f[f], true);
+        map[p.tmp] = row;
+        continue;
+      }
       row = pickCustRow_(sh, L, p.f.k || 'Thu kỳ');
       sh.getRange(row, CUST.k).setValue(String(p.f.k || 'Thu kỳ'));
       for (f in p.f) setField_(sh, 'cust', row, f, p.f[f]);
       finalizeRow_(sh, L, row, p.f, tpl);
       map[p.tmp] = row;
     } else if (p.t === 'd') {
-      if (p.l !== 'cust') continue;
+      if (p.l === 'ntu') {
+        row = findNtuRow_(sh, L, p.hd, p.row);
+        if (!row) { skipped++; continue; }
+        sh.getRange(row, 7, 1, 8).clearContent();  /* G..N */
+        sh.getRange(row, 17, 1, 1).clearContent(); /* Q; giữ công thức O, P */
+        continue;
+      }
       row = p.row;
       if (!(row >= L.custStart && row <= L.custEnd) || (p.exp !== undefined && norm_(sh.getRange(row, 1).getValue()) !== norm_(p.exp))) { skipped++; continue; }
       sh.getRange(row, CUST.cof, 1, 2).clearContent();
