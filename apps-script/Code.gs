@@ -9,7 +9,7 @@
  *   - Thu quá hạn: điền từ dưới lên, nằm phía trên các dòng Thanh lý.
  *   - Ngoại lệ: điền từ dưới lên, nằm phía trên các dòng Thu quá hạn. Cột E được ghi số POS quy đổi
  *     (đã nhân hệ số tùy chỉnh trong app); các kiểu khác giữ nguyên công thức ở cột E.
- *   - NTU: app sửa Tiền thu (K), POS đã thu (J), Mindue (L), Hệ số (Q); có thể thêm hồ sơ mới vào dòng trống. Hồ sơ được nhận diện bằng số HĐ;
+ *   - NTU: app sửa Tiền thu (K), Mindue (L), Hệ số (Q); POS đã thu (J) tự điền bằng POS khi K >= L (cả khi bạn nhập tay trên Sheet); có thể thêm hồ sơ mới vào dòng trống. Hồ sơ được nhận diện bằng số HĐ;
  *     sau mỗi lần ghi, bảng NTU được sắp xếp POS tăng dần từ trên xuống.
  *   - Mọi lệnh ghi đều kiểm tra lại tên khách hoặc số HĐ của dòng; không khớp thì bỏ qua, không ghi nhầm.
  */
@@ -34,6 +34,36 @@ function onOpen() {
   try {
     SpreadsheetApp.getUi().createMenu('HANH KPI').addItem('Sắp xếp NTU theo POS tăng dần', 'sortNtuNow').addToUi();
   } catch (e) {}
+}
+
+/* POS đã thu (cột J) tự điền = POS (cột I) khi Tiền thu (K) > 0 và K >= Mindue (L); ngược lại để trống. Chạy khi bạn tự nhập trên Sheet. */
+function onEdit(e) {
+  try {
+    if (!e || !e.range) return;
+    var sh = e.range.getSheet();
+    if (sh.getName() !== CFG.SHEET) return;
+    var r = e.range;
+    if (r.getLastColumn() < 9 || r.getColumn() > 12) return;
+    var L = layout_(sh);
+    var r1 = Math.max(r.getRow(), L.ntuStart), r2 = Math.min(r.getLastRow(), L.ntuEnd);
+    if (r2 >= r1) fillPosThu_(sh, r1, r2);
+  } catch (x) {}
+}
+
+function fillPosThu_(sh, r1, r2) {
+  var n = r2 - r1 + 1;
+  if (n <= 0) return;
+  var v = sh.getRange(r1, 9, n, 4).getValues();          /* I,J,K,L */
+  var f = sh.getRange(r1, 10, n, 1).getFormulasR1C1();   /* không ghi đè nếu J là công thức */
+  for (var i = 0; i < n; i++) {
+    if (f[i][0]) continue;
+    var t = num_(v[i][2]), m = num_(v[i][3]), p = num_(v[i][0]);
+    var want = (t !== '' && t > 0 && t >= (m === '' ? 0 : m) && p !== '') ? p : '';
+    var cur = num_(v[i][1]);
+    if (cur === want) continue;
+    var cell = sh.getRange(r1 + i, 10);
+    if (want === '') cell.clearContent(); else cell.setValue(want);
+  }
 }
 
 function sortNtuNow() {
@@ -284,7 +314,7 @@ function apply_(sh, patches) {
       }
     }
   }
-  if (patches.length) sortNtu_(sh, L);
+  if (patches.length) { fillPosThu_(sh, L.ntuStart, L.ntuEnd); sortNtu_(sh, L); }
   return {map: map, skipped: skipped};
 }
 

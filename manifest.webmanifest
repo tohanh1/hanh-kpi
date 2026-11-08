@@ -1,6 +1,6 @@
 {
-  "name": "HANH KPI - Thu hồi nợ",
-  "short_name": "HANH KPI",
+  "name": "THÁNG 11 - KPI thu hồi nợ",
+  "short_name": "THÁNG 11",
   "description": "Tính KPI, bonus và thuế thu nhập cá nhân cho nhân viên thu hồi nợ",
   "lang": "vi",
   "start_url": "./index.html",
