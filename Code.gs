@@ -7,6 +7,7 @@
  *   - Thu kỳ: điền vào dòng trống đầu tiên từ TRÊN xuống (hoặc dòng đã có sẵn tên khách đó).
  *   - Thanh lý: điền từ DƯỚI lên.
  *   - Thu quá hạn: điền từ dưới lên, nằm phía trên các dòng Thanh lý.
+ *   - Thu chỉ tính POS (Thanh lý không tính KPI): C và D để trống, cột E ghi số POS quy đổi (số nhập tay); bỏ tick thì trả lại công thức cột E.
  *   - Ngoại lệ: điền từ dưới lên, nằm phía trên các dòng Thu quá hạn. Cột E được ghi số POS quy đổi
  *     (đã nhân hệ số tùy chỉnh trong app); các kiểu khác giữ nguyên công thức ở cột E.
  *   - NTU: app sửa Tiền thu (K), Mindue (L), Hệ số (Q); POS đã thu (J) tự điền bằng POS khi K >= L (cả khi bạn nhập tay trên Sheet); có thể thêm hồ sơ mới vào dòng trống. Hồ sơ được nhận diện bằng số HĐ;
@@ -164,12 +165,16 @@ function read_(sh) {
     data.s[k] = row ? num_(sh.getRange(row, 2).getValue()) : '';
   }
   if (L.custEnd >= L.custStart) {
-    var cv = sh.getRange(L.custStart, 1, L.custEnd - L.custStart + 1, 5).getValues();
+    var cn = L.custEnd - L.custStart + 1;
+    var cv = sh.getRange(L.custStart, 1, cn, 5).getValues();
+    var cfm = sh.getRange(L.custStart, CUST.pe, cn, 1).getFormulasR1C1();
     for (r = 0; r < cv.length; r++) {
       var a = cv[r];
-      if (String(a[0]).trim() === '' && a[2] === '' && a[3] === '') continue;
       var kind = String(a[1] || 'Thu kỳ');
-      data.cust.push({row: L.custStart + r, n: String(a[0]), k: kind, cof: num_(a[2]), non: num_(a[3]), pe: kind === NL ? num_(a[4]) : ''});
+      /* "Thu chỉ tính POS": C và D trống, cột E là số (kiểu Ngoại lệ luôn là số, các kiểu khác là số nhập tay không có công thức) */
+      var isX = (kind === NL || !cfm[r][0]) && num_(a[4]) !== '' && a[2] === '' && a[3] === '';
+      if (String(a[0]).trim() === '' && a[2] === '' && a[3] === '' && !isX) continue;
+      data.cust.push({row: L.custStart + r, n: String(a[0]), k: kind, cof: num_(a[2]), non: num_(a[3]), pe: kind === NL || isX ? num_(a[4]) : '', x: isX ? 1 : ''});
     }
   }
   if (L.ntuEnd >= L.ntuStart) {
@@ -227,8 +232,21 @@ function finalizeRow_(sh, L, row, f, tpl) {
   if (kind === NL) {
     if (f && f.pe !== undefined && f.pe !== '' && f.pe != null) c.setValue(Number(f.pe));
     else if (f && f.pe === '' && tpl) c.setFormulaR1C1(tpl);
-  } else if (tpl && !c.getFormulaR1C1()) {
-    c.setFormulaR1C1(tpl);
+  } else {
+    /* Thu chỉ tính POS (x=1): C, D trống, E giữ số POS quy đổi do app tính, không đụng công thức. Bỏ tick (x='') thì trả lại công thức E. */
+    var hasF = !!c.getFormulaR1C1(), curX;
+    if (f && f.x !== undefined && f.x !== null) {
+      curX = (f.x === 1 || f.x === '1' || f.x === true);
+    } else {
+      var cd = sh.getRange(row, CUST.cof, 1, 2).getValues()[0];
+      curX = !hasF && num_(c.getValue()) !== '' && cd[0] === '' && cd[1] === '';
+    }
+    if (curX) {
+      if (f && f.pe !== undefined && f.pe !== '' && f.pe != null) c.setValue(Number(f.pe));
+      else if (hasF) c.setValue(0);
+    } else if (tpl && !hasF) {
+      c.setFormulaR1C1(tpl);
+    }
   }
 }
 
@@ -305,7 +323,7 @@ function apply_(sh, patches) {
       if (!(row >= L.custStart && row <= L.custEnd) || (p.exp !== undefined && norm_(sh.getRange(row, 1).getValue()) !== norm_(p.exp))) { skipped++; continue; }
       sh.getRange(row, CUST.cof, 1, 2).clearContent();
       if (p.full) { sh.getRange(row, CUST.n).clearContent(); sh.getRange(row, CUST.k).setValue('Thu kỳ'); }
-      finalizeRow_(sh, L, row, {pe: ''}, tpl);
+      finalizeRow_(sh, L, row, {pe: '', x: ''}, tpl);
     } else if (p.t === 's') {
       var lr = L.labels[p.k];
       if (lr) {
