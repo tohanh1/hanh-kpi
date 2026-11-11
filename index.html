@@ -292,6 +292,21 @@ details.comp[open]>.card::before{content:"";display:block;width:44px;height:5px;
 #redo{border-radius:0 99px 99px 0;margin-left:-8px;padding-right:4px;position:relative}
 #redo::before{content:"";position:absolute;left:0;top:9px;bottom:9px;width:1px;background:var(--line)}
 .acts{gap:8px}
+
+/* Dashboard concept B - màu sắc chỉ áp dụng trong màn Tổng quan */
+.fp-dashboard{--surface:#fff;--surface2:#f5f2e9;--ink:#20232b;--muted:#747984;--line:#e9e3d5;--accent:#C99A25;--soft:#FBF4E3;--good:#24734b;--good-bg:#e8f5ed;--bad:#a52a2a;--bad-bg:#fff0f0;--sh:0 8px 24px rgba(35,28,28,.045)}
+:root[data-theme="dark"] .fp-dashboard{--surface:#1b1d21;--surface2:#24272c;--ink:#f3f3f4;--muted:#a3a6ad;--line:#38342a;--accent:#E0B84F;--soft:#3A3020;--good:#83d6a5;--good-bg:#1c3828;--bad:#ff8585;--bad-bg:#3b2224;--sh:none}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .fp-dashboard{--surface:#1b1d21;--surface2:#24272c;--ink:#f3f3f4;--muted:#a3a6ad;--line:#38342a;--accent:#E0B84F;--soft:#3A3020;--good:#83d6a5;--good-bg:#1c3828;--bad:#ff8585;--bad-bg:#3b2224;--sh:none}}
+.fp-dashboard{display:grid;gap:16px;padding:2px 0 18px;letter-spacing:0}.fp-welcome{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:4px 2px}.fp-welcome h2{font-size:25px;letter-spacing:-.7px;font-weight:800;margin:5px 0 3px}.fp-welcome h2 em{font-style:normal;color:var(--accent)}.fp-welcome p{margin:0;color:var(--muted);font-size:13px}.fp-eyebrow{font-size:10px;letter-spacing:1.2px;font-weight:800;color:var(--muted)}.fp-month,.fp-tag{white-space:nowrap;background:var(--soft);color:var(--accent);font-size:10px;font-weight:750;padding:7px 10px;border-radius:99px}
+.fp-hero{background:linear-gradient(135deg,#806018,#A77C1D 65%,#C99A25);color:#fff;border-radius:23px;padding:19px;box-shadow:0 12px 28px rgba(132,30,38,.15)}.fp-hero-top{display:flex;align-items:center;justify-content:space-between;gap:12px}.fp-label{font-size:10px;font-weight:800;letter-spacing:1px;color:#ffffffb8}.fp-percent{font-size:39px;font-weight:850;letter-spacing:-1.5px;line-height:1.15;margin:8px 0}.fp-status{display:inline-flex;background:#ffffff20;border:1px solid #ffffff38;border-radius:99px;padding:6px 10px;font-size:10px;font-weight:700}.fp-ring{width:98px;height:98px;flex:none;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#fff var(--p),#ffffff30 0);position:relative}.fp-ring:before{content:"";position:absolute;inset:7px;border-radius:50%;background:#9A721A}.fp-ring div{position:relative;text-align:center;display:grid}.fp-ring b{font-size:19px}.fp-ring small{font-size:9px;opacity:.75}.fp-hero-foot{display:flex;justify-content:space-between;gap:8px;border-top:1px solid #ffffff35;padding-top:12px;margin-top:16px;font-size:10px;color:#ffffffdf;font-weight:650}
+.fp-section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin:2px 1px 0}.fp-section-head h3{font-size:16px;letter-spacing:-.3px;margin-top:3px}.fp-section-head a{color:var(--accent);font-size:10px;text-decoration:none;font-weight:750;white-space:nowrap}.fp-metrics{display:grid;grid-template-columns:1fr 1fr;gap:9px}.fp-metric{min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:17px;padding:13px;display:grid;gap:6px;box-shadow:var(--sh)}.fp-metric span{font-size:10px;color:var(--muted);font-weight:700}.fp-metric b{font-size:18px;letter-spacing:-.5px;overflow-wrap:anywhere}.fp-metric small{font-size:10px;color:var(--muted)}.fp-metric.red{border-top:3px solid #C99A25}.fp-metric.dark{border-top:3px solid #454a55}.fp-metric.soft{background:var(--soft);border-color:transparent}.fp-metric.gold{border-top:3px solid #d6a03b}
+.fp-card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:var(--sh)}.fp-target{display:grid;gap:13px}.fp-target-row{display:flex;justify-content:space-between;align-items:center;gap:8px}.fp-target-row div{display:grid;gap:3px}.fp-target-row b{font-size:12px}.fp-target-row small{font-size:10px;color:var(--muted)}.fp-target-row strong{font-size:12px}.fp-track{height:8px;background:var(--surface2);border-radius:99px;overflow:hidden;margin-top:-8px}.fp-track i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#C99A25,#E4C56F)}.fp-total{background:var(--surface2);border-radius:13px;padding:11px 12px;display:grid;grid-template-columns:1fr auto;gap:3px 8px}.fp-total span{font-size:10px;color:var(--muted);font-weight:650}.fp-total b{font-size:13px}.fp-total small{grid-column:1/-1;color:var(--muted);font-size:10px}
+.fp-next{display:grid;gap:10px;background:var(--soft);border-color:transparent}.fp-next h3{font-size:15px;margin:3px 0}.fp-next p{font-size:10px;color:var(--muted);margin:0}.fp-next-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.fp-next-grid div{background:var(--surface);padding:10px;border-radius:12px;display:grid;gap:4px}.fp-next-grid small{font-size:10px;color:var(--muted)}.fp-next-grid b{font-size:15px}
+.fp-conditions{display:grid;gap:8px}.fp-condition{display:grid;grid-template-columns:28px 1fr auto;gap:8px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:15px;padding:11px}.fp-condition>span{width:27px;height:27px;border-radius:50%;display:grid;place-items:center;font-weight:850}.fp-condition.ok>span{background:var(--good-bg);color:var(--good)}.fp-condition.wait>span{background:var(--bad-bg);color:var(--bad)}.fp-condition b{font-size:10px}.fp-condition p{margin:3px 0 0;font-size:10px;color:var(--muted);line-height:1.4}.fp-condition strong{font-size:11px;white-space:nowrap}
+.fp-income-main{background:linear-gradient(120deg,#292c33,#42454d);color:#fff;border-radius:15px;padding:14px;margin:12px 0}.fp-income-main small{font-size:9px;letter-spacing:1px;color:#ddd;font-weight:800}.fp-income-main b{display:block;font-size:25px;letter-spacing:-.6px;margin-top:3px}.fp-income-list{display:grid}.fp-income-list div{display:flex;justify-content:space-between;gap:10px;padding:9px 1px;border-bottom:1px solid var(--line);font-size:10px}.fp-income-list div:last-child{border:0}.fp-income-list span{color:var(--muted)}.fp-income-list b{font-size:10px;text-align:right}.fp-income-list .net{padding-top:12px;font-weight:800}.fp-income-list .net span,.fp-income-list .net b{color:var(--accent)}.fp-footnote{text-align:center;color:var(--muted);font-size:10px;padding:3px 12px}
+@media(min-width:700px){.wrap{max-width:920px}.fp-dashboard{gap:18px}.fp-welcome h2{font-size:30px}.fp-hero{padding:25px 28px}.fp-percent{font-size:48px}.fp-metrics{grid-template-columns:repeat(4,1fr)}.fp-metric{padding:17px}}
+@media(max-width:380px){.fp-welcome h2{font-size:21px}.fp-month{font-size:9px;padding:6px 8px}.fp-hero{padding:16px}.fp-percent{font-size:34px}.fp-ring{width:86px;height:86px}.fp-metric{padding:11px}.fp-metric b{font-size:16px}.fp-section-head h3{font-size:15px}}
+
 </style>
 </head>
 <body>
@@ -434,7 +449,7 @@ function doRedo(){if(!redo.length){toast('Không có thao tác để làm lại'
 function changed(){S.demo=false;fixPos(S.ntu);save();head();updUndo();schedSync(1200)}
 
 /* ---------- sync (Google Sheet via Apps Script web app) ---------- */
-var syncing=false,lastSync=0,dirtyRender=false,stt='idle',syncTimer;
+var syncing=false,lastSync=0,dirtyRender=false,stt='idle',syncTimer,syncFailCount=0;
 function eq(a,b){return String(a==null?'':a)===String(b==null?'':b)}
 function pick(o,F){var r={};F.forEach(function(f){r[f]=o[f]==null?'':o[f]});return r}
 function kOf(l,x){return l==='ntu'&&x.hd?'h'+String(x.hd).trim():'r'+x.row}
@@ -470,16 +485,16 @@ function call(method,patches){
   return fetch(u,{method:'POST',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({token:cfg.token,patches:patches})}).then(parse);
 }
 function parse(r){return r.text().then(function(t){var j;try{j=JSON.parse(t)}catch(e){throw new Error('Phản hồi không hợp lệ')}if(!j.ok)throw new Error(j.error==='auth'?'Sai mật khẩu':(j.error||'Lỗi'));return j})}
-function setStt(k){stt=k;var b=document.getElementById('sy'),t=document.getElementById('syt');b.className='sy '+(k==='ok'?'ok':k==='busy'?'busy':k==='err'?'err':k==='off'?'off':'');
-  var tx={idle:'Chưa kết nối',busy:'Đang đồng bộ…',ok:'Đã đồng bộ '+(lastSync?new Date(lastSync).toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'}):''),err:'Lỗi đồng bộ',off:'Ngoại tuyến'};t.textContent=tx[k];
+function setStt(k){var b=document.getElementById('sy'),t=document.getElementById('syt');var tx={idle:'Chưa kết nối',busy:'Đang đồng bộ…',ok:'Đã đồng bộ '+(lastSync?new Date(lastSync).toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'}):''),err:'Lỗi đồng bộ',off:'Ngoại tuyến'};if(stt===k&&t&&t.textContent===tx[k])return;stt=k;b.className='sy '+(k==='ok'?'ok':k==='busy'?'busy':k==='err'?'err':k==='off'?'off':'');
+  t.textContent=tx[k];
   var st=document.getElementById('sy-state');if(st)st.textContent=tx[k]+(k==='err'&&sync.err?': '+sync.err:'')}
 function focusedInput(){var a=document.activeElement;return a&&(a.tagName==='INPUT'||a.tagName==='SELECT'||a.tagName==='TEXTAREA')&&view.contains(a)}
 function schedSync(ms){if(!cfg.on||!cfg.url)return;clearTimeout(syncTimer);syncTimer=setTimeout(sync,ms)}
-function sync(){
+function sync(manual){manual=!!manual;
   if(!cfg.on||!cfg.url||!cfg.token)return Promise.resolve();
   if(!navigator.onLine){setStt('off');return Promise.resolve()}
   if(syncing){schedSync(1500);return Promise.resolve()}
-  syncing=true;setStt('busy');
+  syncing=true;if(manual)setStt('busy');
   return call('GET').then(function(j){
     var hadBase=!!base,R=normR(j.data),before=JSON.stringify([S.cust,S.ntu,pick(S,SF)]),M,patches;
     if(R.month&&R.month!==S.month){S.month=R.month}
@@ -493,15 +508,15 @@ function sync(){
       fixPos(M.ntu);patches=makePatches(R,M);
     }
     var after=JSON.stringify([S.cust,S.ntu,pick(S,SF)]);
-    if(before!==after){logEv(base&&base.cust&&hadBase?'Đồng bộ: nhận thay đổi từ Google Sheet':'Đồng bộ: nạp dữ liệu từ Google Sheet');save();if(focusedInput())dirtyRender=true;else{render()}head()}
+    if(before!==after){logEv(base&&base.cust&&hadBase?'Đồng bộ: nhận thay đổi từ Google Sheet':'Đồng bộ: nạp dữ liệu từ Google Sheet');save();if(focusedInput())dirtyRender=true;else{refreshCurrentView()}head()}
     if(!patches.length){base=R.cust||R.ntu?R:base;wr(BKEY,base);return}
     return call('POST',patches).then(function(j2){
       logEv('Đồng bộ: gửi '+patches.length+' thay đổi lên Google Sheet'+(j2.skipped?' (bỏ qua '+j2.skipped+' vì Sheet đã đổi)':''));
       var map=j2.map||{};S.mine=S.mine||{};S.cust.forEach(function(x){if(x.row==null&&map[x.id]!=null){x.row=map[x.id];S.mine[x.row]=1}});base=normR(j2.data);var bh={};base.ntu.forEach(function(x){bh[String(x.hd).trim()]=x.row});S.ntu.forEach(function(x){var h=String(x.hd).trim();if(bh[h]!=null)x.row=bh[h]});
       wr(BKEY,base);save();
-      if(!focusedInput())render();else dirtyRender=true;
+      if(!focusedInput())refreshCurrentView();else dirtyRender=true;
     });
-  }).then(function(){lastSync=Date.now();sync.err='';setStt('ok')},function(e){sync.err=e&&e.message||'';setStt(navigator.onLine?'err':'off')})
+  }).then(function(){lastSync=Date.now();sync.err='';syncFailCount=0;if(manual||stt==='err')setStt('ok')},function(e){sync.err=e&&e.message||'';syncFailCount++;if(manual||syncFailCount>=2)setStt(navigator.onLine?'err':'off')})
   .then(function(){syncing=false});
 }
 sync.err='';
@@ -531,43 +546,23 @@ function bar(label,v,max,col,marks){
   return '<div><div class="bl"><span>'+label+'</span><b>'+pct(v)+'</b></div><div class="tr"><i style="width:'+w+'%;background:'+col+'"></i>'+m+'</div></div>';
 }
 function ovHTML(){
-  var o=calc(S),nx=o.next?o.next[0]:null;
-  var max=Math.max(1.2,o.pCof,o.pNon,o.pNtu,o.total,nx||0)*1.06,mk2=[{at:1}];if(nx)mk2.push({at:nx,c:'nx'});
-  var C=2*Math.PI*52,v=Math.min(o.total,1),ov=Math.max(0,Math.min(o.total-1,1)),over=o.total-1;
-  var h='<div class="slogan"><span aria-hidden="true">💪</span><div>Chúc anh em luôn MAX BONUS nhé!</div></div>';
-  h+='<div class="bhero"><div class="row2"><div class="ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="t" cx="60" cy="60" r="52"/><circle class="v" cx="60" cy="60" r="52" stroke-dasharray="'+(v*C).toFixed(1)+' '+C.toFixed(1)+'"/>'+(ov>0?'<circle class="o" cx="60" cy="60" r="40" stroke-dasharray="'+(ov*2*Math.PI*40).toFixed(1)+' '+(2*Math.PI*40).toFixed(1)+'" style="stroke-width:7"/>':'')+'</svg><b><span>'+pct(o.total,1)+'<small>hoàn thành</small></span></b></div>'+
-   '<div><small class="k">Thực nhận sau thuế</small><div class="net2">'+money(o.thuc)+'</div><span class="chp g">Bậc bonus '+pct(o.rate,2)+'</span></div></div>'+
-   '<div class="sub">'+(over>=0?'Vượt mức 100%: +'+pct(over):'Còn thiếu '+pct(-over)+' đến mốc 100%')+' · KQ tiền thu '+pct(o.kqTien)+' + KQ NTU '+pct(o.kqNtu)+'</div></div>';
-  var tot6=o.cof+o.non,tg6=num(S.tCOF)+num(S.tNON);
-  h+='<div class="bento">'+
-   '<div class="bt c1"><small>Tổng thu COF</small><b>'+money(o.cof)+'</b>'+pg(o.pCof)+'<i>'+(S.tCOF>0?pct(o.pCof,1)+' của target':'chưa có target')+'</i></div>'+
-   '<div class="bt"><small>Target COF</small><b>'+money(S.tCOF)+'</b><i>mục tiêu tháng</i></div>'+
-   '<div class="bt c2"><small>Tổng thu NON</small><b>'+money(o.non)+'</b>'+pg(o.pNon)+'<i>'+(S.tNON>0?pct(o.pNon,1)+' của target':'chưa có target')+'</i></div>'+
-   '<div class="bt"><small>Target NON</small><b>'+money(S.tNON)+'</b><i>mục tiêu tháng</i></div>'+
-   '<div class="bt"><small>Tổng thu (COF + NON)</small><b>'+money(tot6)+'</b>'+pg(tg6>0?tot6/tg6:0)+'<i>'+(tg6>0?pct(tot6/tg6,1)+' của target tổng':'chưa có target')+'</i></div>'+
-   '<div class="bt"><small>Target tổng</small><b>'+money(tg6)+'</b><i>COF + NON</i></div>'+
-   '<div class="bt c3"><small>NTU CIC OK</small><b>'+S.ntuOK+' / '+S.tNTU+' bộ</b>'+pg(o.pNtu)+'<i>'+pct(o.pNtu,1)+'</i></div>'+
-   '<div class="bt dk"><small>POS quy đổi</small><b>'+money(o.pos)+'</b><i>× bậc '+pct(o.rate,2)+'</i></div></div>';
-  if(nx){var nc=need(S,'cof'),nn=need(S,'non');
-    h+='<p class="mini" style="margin:10px 4px 0">Để lên bậc '+pct(nx,0)+' ('+pct(o.next[1],2)+'): cần thêm khoảng <b>'+(nc==null?'—':money(nc))+'</b> COF, hoặc <b>'+(nn==null?'—':money(nn))+'</b> NON (tính riêng từng loại).</p>'}
-  h+='<div class="cond" style="margin-top:12px">'+
-   cond(o.full,'Điều kiện 100% bonus','Đã đạt điều kiện nhận 100% bonus','Chưa đạt điều kiện nhận 100% bonus',o.full?'':'Bonus hiện chỉ nhận '+Math.round(S.notFull*100)+'%. Còn thiếu '+money(Math.max(0,o.i80-o.nPosThu))+' POS NTU đã thu để nhận 100% bonus.',o.j80)+
-   cond(o.resp,'Trách nhiệm và thanh lý NTU','Đã đạt điều kiện nhận trách nhiệm NTU và thanh lý NTU','Chưa đạt điều kiện nhận trách nhiệm NTU và thanh lý NTU',o.resp?'':'Còn thiếu '+money(Math.max(0,o.i85-o.nPosThu))+' POS NTU đã thu để nhận trách nhiệm.',o.j85,'<div class="mini">Hồ sơ đạt mindue: <b>'+o.okN+'/'+S.ntu.length+'</b></div>')+'</div>';
-  h+='<div class="sec"><h2>Từ POS đến thực nhận</h2><div class="card"><div class="ladder">'+
-   '<div><span>POS quy đổi '+money(o.pos)+' × '+pct(o.rate,2)+'</span><b>'+money(o.grossBonus)+'</b></div>'+
-   (o.full?'':'<div><span>Chưa đạt 100% bonus, nhận '+Math.round(S.notFull*100)+'%</span><b>× '+Math.round(S.notFull*100)+'%</b></div>')+
-   '<div class="sub"><span>Bonus nhận</span><b>'+money(o.bonus)+'</b></div>'+
-   '<div><span>Khoản cố định</span><b>+ '+money(S.fixed)+'</b></div>'+
-   '<div><span>Trách nhiệm NTU '+(o.resp?'':'(chưa đủ điều kiện)')+'</span><b>+ '+money(o.respPay)+'</b></div>'+
-   '<div class="sub"><span>Tổng nhận</span><b>'+money(o.tong)+'</b></div>'+
-   '<div><span>Thuế TNCN (giảm trừ '+money(o.ded)+')</span><b>− '+money(o.tax)+'</b></div>'+
-   '<div><span>Thực nhận</span><b>'+money(o.thuc)+'</b></div></div></div></div>';
-  var mx=Math.max(1.2,o.j80,o.j85)*1.06;
-  if(false)h+='<div class="sec"><h2>Điều kiện NTU quay đầu</h2><div class="card"><div class="bars" style="margin-top:0">'+
-   bar('POS đã thu so với mục tiêu 100% bonus',o.j80,mx,'var(--non)',[{at:1}])+
-   bar('POS đã thu so với mục tiêu trách nhiệm',o.j85,mx,'var(--ntu)',[{at:1}])+'</div>'+
-   '<p class="mini" style="margin:10px 0 0">Mục tiêu trách nhiệm = '+Math.round(S.r85*100)+'% tổng POS NTU ('+money(o.i85)+'). Mục tiêu 100% bonus = '+Math.round(S.r80*100)+'% của mục tiêu đó ('+money(o.i80)+').</p></div></div>';
-  return h;
+ var o=calc(S),nx=o.next?o.next[0]:null,tot=o.cof+o.non,tg=num(S.tCOF)+num(S.tNON),over=o.total-1;
+ function bar(v){return '<div class="fp-track"><i style="width:'+Math.min(100,Math.max(0,v*100))+'%"></i></div>'}
+ function card(t,v,s,c){return '<article class="fp-metric '+c+'"><span>'+t+'</span><b>'+v+'</b><small>'+s+'</small></article>'}
+ var h='<section class="fp-dashboard"><div class="fp-welcome"><div><span class="fp-eyebrow">BẢNG ĐIỀU KHIỂN HIỆU SUẤT</span><h2>Chào bạn, '+esc(pf.name||'Hạnh')+' <em>✦</em></h2><p>Theo dõi kết quả trong '+esc(String(S.month||'kỳ hiện tại'))+'</p></div><span class="fp-month">'+esc(monthLbl())+'</span></div>';
+ h+='<section class="fp-hero"><div class="fp-hero-top"><div><span class="fp-label">TỔNG MỨC HOÀN THÀNH KPI</span><div class="fp-percent">'+pct(o.total,1)+'</div><span class="fp-status">'+(o.total>=1?'Đã vượt mốc KPI':o.total>=.8?'Đang tiến gần mục tiêu':'Tiếp tục bứt tốc')+'</span></div><div class="fp-ring" style="--p:'+Math.min(100,Math.max(0,o.total*100))+'%"><div><b>'+pct(o.total,0)+'</b><small>mục tiêu</small></div></div></div><div class="fp-hero-foot"><span>'+(over>=0?'Vượt mốc 100%: +'+pct(over,1):'Còn thiếu '+pct(-over,1)+' để đạt 100%')+'</span><span>Bonus '+pct(o.rate,2)+'</span></div></section>';
+ h+='<div class="fp-section-head"><div><span class="fp-eyebrow">TỔNG QUAN THU HỒI</span><h3>Kết quả kinh doanh</h3></div><a href="#thu-tien">Chi tiết thu tiền →</a></div><div class="fp-metrics">';
+ h+=card('Tổng thu COF',money(o.cof),S.tCOF>0?pct(o.pCof,1)+' / mục tiêu':'Chưa có mục tiêu','red')+card('Tổng thu NON',money(o.non),S.tNON>0?pct(o.pNon,1)+' / mục tiêu':'Chưa có mục tiêu','dark')+card('POS quy đổi',money(o.pos),'Bậc bonus '+pct(o.rate,2),'soft')+card('NTU CIC OK',S.ntuOK+' / '+S.tNTU+' bộ',pct(o.pNtu,1)+' hoàn thành','gold')+'</div>';
+ h+='<section class="fp-card fp-target"><div class="fp-section-head"><div><span class="fp-eyebrow">TIẾN ĐỘ MỤC TIÊU</span><h3>Thu hồi so với chỉ tiêu</h3></div><span class="fp-tag">'+(tg>0?(tot/tg>=1?'Hoàn thành':'Đang thực hiện'):'Chưa có target')+'</span></div>';
+ h+='<div class="fp-target-row"><div><b>COF</b><small>'+money(o.cof)+' / '+money(S.tCOF)+'</small></div><strong>'+pct(o.pCof,1)+'</strong></div>'+bar(o.pCof);
+ h+='<div class="fp-target-row"><div><b>NON</b><small>'+money(o.non)+' / '+money(S.tNON)+'</small></div><strong>'+pct(o.pNon,1)+'</strong></div>'+bar(o.pNon);
+ h+='<div class="fp-total"><span>Tổng thu COF + NON</span><b>'+money(tot)+'</b><small>'+(tg>0?'Mục tiêu '+money(tg)+' · '+pct(tot/tg,1):'Chưa thiết lập mục tiêu tổng')+'</small></div></section>';
+ if(nx){h+='<section class="fp-card fp-next"><span class="fp-eyebrow">CỘT MỐC TIẾP THEO</span><h3>Thêm bao nhiêu để lên bậc '+pct(nx,0)+'?</h3><p>Ước tính theo từng phương án riêng biệt.</p><div class="fp-next-grid"><div><small>Nếu thu COF</small><b>'+(need(S,'cof')==null?'—':money(need(S,'cof')))+'</b></div><div><small>Nếu thu NON</small><b>'+(need(S,'non')==null?'—':money(need(S,'non')))+'</b></div></div></section>'}
+ h+='<div class="fp-section-head"><div><span class="fp-eyebrow">ĐIỀU KIỆN THƯỞNG</span><h3>Trạng thái đủ điều kiện</h3></div><a href="#ntu">Mở NTU →</a></div><div class="fp-conditions">';
+ h+='<article class="fp-condition '+(o.full?'ok':'wait')+'"><span>'+(o.full?'✓':'!')+'</span><div><b>Điều kiện nhận 100% bonus</b><p>'+(o.full?'Đã đạt điều kiện.':'Còn thiếu '+money(Math.max(0,o.i80-o.nPosThu))+' POS NTU đã thu.')+'</p></div><strong>'+pct(o.j80,1)+'</strong></article>';
+ h+='<article class="fp-condition '+(o.resp?'ok':'wait')+'"><span>'+(o.resp?'✓':'!')+'</span><div><b>Trách nhiệm NTU</b><p>'+(o.resp?'Đã đạt điều kiện.':'Còn thiếu '+money(Math.max(0,o.i85-o.nPosThu))+' POS NTU đã thu.')+'</p></div><strong>'+pct(o.j85,1)+'</strong></article></div>';
+ h+='<section class="fp-card fp-income"><div class="fp-section-head"><div><span class="fp-eyebrow">THU NHẬP ƯỚC TÍNH</span><h3>Dự kiến thực nhận</h3></div><span class="fp-tag">Sau thuế TNCN</span></div><div class="fp-income-main"><small>THỰC NHẬN</small><b>'+money(o.thuc)+'</b></div><div class="fp-income-list"><div><span>Bonus nhận</span><b>'+money(o.bonus)+'</b></div><div><span>Khoản cố định</span><b>'+money(S.fixed)+'</b></div><div><span>Trách nhiệm NTU</span><b>'+money(o.respPay)+'</b></div><div><span>Tổng thu nhập</span><b>'+money(o.tong)+'</b></div><div><span>Thuế TNCN</span><b>− '+money(o.tax)+'</b></div><div class="net"><span>Thực nhận sau thuế</span><b>'+money(o.thuc)+'</b></div></div></section><div class="fp-footnote">Số liệu tính từ dữ liệu hiện có trên thiết bị và trạng thái đồng bộ Google Sheets.</div></section>';
+ return h;
 }
 function viewTong(){view.innerHTML=ovHTML()}
 
@@ -781,7 +776,7 @@ function findItem(row){var l=S[row.dataset.l];for(var i=0;i<l.length;i++)if(l[i]
 document.addEventListener('click',function(e){
   var t=e.target,b=t.closest('[data-act]');
   if(t.closest('#bell')){histOpen();return}if(t.id==='histx'||t.id==='histw'){histClose();return}if(t.closest('#me')){location.hash='#cai-dat';return}if(t.closest('#undo')){doUndo();return}if(t.closest('#redo')){doRedo();return}
-  if(t.closest('#sy')){if(cfg.on&&cfg.url)sync();else location.hash='#cai-dat';return}
+  if(t.closest('#sy')){if(cfg.on&&cfg.url)sync(true);else location.hash='#cai-dat';return}
   var seg=t.closest('[data-ct],[data-fc],[data-fn],[data-th]');
   if(seg){
     if(seg.dataset.ct){comp.t=seg.dataset.ct;if(comp.x)comp.xh=defX();viewThu();document.getElementById('c-amt').focus()}
@@ -813,12 +808,12 @@ document.addEventListener('click',function(e){
     tgt[comp.t==='COF'?'cof':'non']=amt;if(comp.k===NL){tgt.hc=comp.hc;tgt.hn=comp.hn}fixPe(tgt);
     comp.amt='';comp.name='';compOpen=false;changed();render();toast('Đã thêm khoản thu')}
   else if(a==='sysave'){cfg={url:document.getElementById('sy-url').value.trim(),token:document.getElementById('sy-token').value.trim(),on:true,poll:12000};wr(CKEY,cfg);base=null;wr(BKEY,null);
-    if(!cfg.url){toast('Nhập địa chỉ Web App');return}setStt('busy');sync().then(function(){toast(stt==='ok'?'Đã kết nối Google Sheet':'Chưa kết nối được: '+(sync.err||'kiểm tra lại'))})}
+    if(!cfg.url){toast('Nhập địa chỉ Web App');return}sync(true).then(function(){toast(stt==='ok'?'Đã kết nối Google Sheet':'Chưa kết nối được: '+(sync.err||'kiểm tra lại'))})}
   else if(a==='syoff'){cfg.on=false;wr(CKEY,cfg);setStt('idle');toast('Đã ngắt đồng bộ')}
   else if(a==='cphd'&&row){var fi=findItem(row),hv=fi?String(fi[0][fi[1]].hd||''):'';if(!hv){toast('Hồ sơ chưa có số HĐ');return}
     var okc=function(){toast('Đã sao chép số HĐ '+hv)},nok=function(){toast('Số HĐ: '+hv)};
     if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(hv).then(okc,nok);else nok()}
-  else if(a==='syncnow'){if(cfg.on&&cfg.url){setStt('busy');sync()}else toast('Chưa kết nối. Nhập địa chỉ Web App bên dưới.')}
+  else if(a==='syncnow'){if(cfg.on&&cfg.url){sync(true)}else toast('Chưa kết nối. Nhập địa chỉ Web App bên dưới.')}
   else if(a==='cp'){var tx=JSON.stringify(S);if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(tx).then(function(){toast('Đã sao chép')},function(){document.getElementById('imp').value=tx;toast('Chọn và sao chép trong ô bên dưới')});else{document.getElementById('imp').value=tx;toast('Chọn và sao chép trong ô bên dưới')}}
   else if(a==='dl'){try{var u=URL.createObjectURL(new Blob([JSON.stringify(S)],{type:'application/json'})),x=document.createElement('a');x.href=u;x.download='hanh-kpi-'+(S.month||'sao-luu').replace(/\s+/g,'-')+'.json';document.body.appendChild(x);x.click();x.remove();setTimeout(function(){URL.revokeObjectURL(u)},2000)}catch(er){toast('Không tải được, dùng Sao chép dữ liệu')}}
   else if(a==='imp')doImport(document.getElementById('imp').value);
@@ -866,6 +861,7 @@ document.addEventListener('focusout',function(e){
 });
 
 /* ---------- shell ---------- */
+function refreshCurrentView(){if(cur==='tong-quan')viewTong();else if(cur==='thu-tien')viewThu();else if(cur==='ntu')viewNtu();else viewSet()}
 function render(){
   var nav=document.getElementById('nav');
   nav.innerHTML=TABS.map(function(t){return '<a href="#'+t[0]+'"'+(t[0]===cur?' aria-current="page"':'')+'><svg viewBox="0 0 24 24" aria-hidden="true">'+t[2]+'</svg>'+t[1]+'</a>'}).join('');
@@ -879,7 +875,7 @@ function isDark(){var m=rd(THEME)||'auto';return m==='dark'||(m==='auto'&&window
 function themeIco(){var e=document.getElementById('theme-ico');if(e)e.innerHTML=isDark()?SUN:MOON;var b=document.getElementById('theme');if(b)b.setAttribute('aria-label',isDark()?'Chuyển sang giao diện sáng':'Chuyển sang giao diện tối')}
 function applyTheme(){var m=rd(THEME)||'auto',r=document.documentElement;if(m==='auto')r.removeAttribute('data-theme');else r.setAttribute('data-theme',m);themeIco()}
 applyTheme();head();route();bellN();document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!document.getElementById('histw').hidden)histClose()});
-if(cfg.on&&cfg.url){setStt('busy');sync()}else setStt('idle');
+if(cfg.on&&cfg.url){sync(true)}else setStt('idle');
 if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol)){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}
 window.__kpi={calc:calc,sample:sample,S:function(){return S},sync:sync,cfg:function(){return cfg},base:function(){return base}};
 })();
