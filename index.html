@@ -538,9 +538,14 @@ function ovHTML(){
   h+='<div class="bhero"><div class="row2"><div class="ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="t" cx="60" cy="60" r="52"/><circle class="v" cx="60" cy="60" r="52" stroke-dasharray="'+(v*C).toFixed(1)+' '+C.toFixed(1)+'"/>'+(ov>0?'<circle class="o" cx="60" cy="60" r="40" stroke-dasharray="'+(ov*2*Math.PI*40).toFixed(1)+' '+(2*Math.PI*40).toFixed(1)+'" style="stroke-width:7"/>':'')+'</svg><b><span>'+pct(o.total,1)+'<small>hoàn thành</small></span></b></div>'+
    '<div><small class="k">Thực nhận sau thuế</small><div class="net2">'+money(o.thuc)+'</div><span class="chp g">Bậc bonus '+pct(o.rate,2)+'</span></div></div>'+
    '<div class="sub">'+(over>=0?'Vượt mức 100%: +'+pct(over):'Còn thiếu '+pct(-over)+' đến mốc 100%')+' · KQ tiền thu '+pct(o.kqTien)+' + KQ NTU '+pct(o.kqNtu)+'</div></div>';
+  var tot6=o.cof+o.non,tg6=num(S.tCOF)+num(S.tNON);
   h+='<div class="bento">'+
-   '<div class="bt c1"><small>Tổng thu COF</small><b>'+money(o.cof)+'</b>'+pg(o.pCof)+'<i>'+(S.tCOF>0?pct(o.pCof,1)+' của '+money(S.tCOF):'chưa có target')+'</i></div>'+
-   '<div class="bt c2"><small>Tổng thu NON</small><b>'+money(o.non)+'</b>'+pg(o.pNon)+'<i>'+(S.tNON>0?pct(o.pNon,1)+' của '+money(S.tNON):'chưa có target')+'</i></div>'+
+   '<div class="bt c1"><small>Tổng thu COF</small><b>'+money(o.cof)+'</b>'+pg(o.pCof)+'<i>'+(S.tCOF>0?pct(o.pCof,1)+' của target':'chưa có target')+'</i></div>'+
+   '<div class="bt"><small>Target COF</small><b>'+money(S.tCOF)+'</b><i>mục tiêu tháng</i></div>'+
+   '<div class="bt c2"><small>Tổng thu NON</small><b>'+money(o.non)+'</b>'+pg(o.pNon)+'<i>'+(S.tNON>0?pct(o.pNon,1)+' của target':'chưa có target')+'</i></div>'+
+   '<div class="bt"><small>Target NON</small><b>'+money(S.tNON)+'</b><i>mục tiêu tháng</i></div>'+
+   '<div class="bt"><small>Tổng thu (COF + NON)</small><b>'+money(tot6)+'</b>'+pg(tg6>0?tot6/tg6:0)+'<i>'+(tg6>0?pct(tot6/tg6,1)+' của target tổng':'chưa có target')+'</i></div>'+
+   '<div class="bt"><small>Target tổng</small><b>'+money(tg6)+'</b><i>COF + NON</i></div>'+
    '<div class="bt c3"><small>NTU CIC OK</small><b>'+S.ntuOK+' / '+S.tNTU+' bộ</b>'+pg(o.pNtu)+'<i>'+pct(o.pNtu,1)+'</i></div>'+
    '<div class="bt dk"><small>POS quy đổi</small><b>'+money(o.pos)+'</b><i>× bậc '+pct(o.rate,2)+'</i></div></div>';
   if(nx){var nc=need(S,'cof'),nn=need(S,'non');
@@ -558,7 +563,7 @@ function ovHTML(){
    '<div><span>Thuế TNCN (giảm trừ '+money(o.ded)+')</span><b>− '+money(o.tax)+'</b></div>'+
    '<div><span>Thực nhận</span><b>'+money(o.thuc)+'</b></div></div></div></div>';
   var mx=Math.max(1.2,o.j80,o.j85)*1.06;
-  h+='<div class="sec"><h2>Điều kiện NTU quay đầu</h2><div class="card"><div class="bars" style="margin-top:0">'+
+  if(false)h+='<div class="sec"><h2>Điều kiện NTU quay đầu</h2><div class="card"><div class="bars" style="margin-top:0">'+
    bar('POS đã thu so với mục tiêu 100% bonus',o.j80,mx,'var(--non)',[{at:1}])+
    bar('POS đã thu so với mục tiêu trách nhiệm',o.j85,mx,'var(--ntu)',[{at:1}])+'</div>'+
    '<p class="mini" style="margin:10px 0 0">Mục tiêu trách nhiệm = '+Math.round(S.r85*100)+'% tổng POS NTU ('+money(o.i85)+'). Mục tiêu 100% bonus = '+Math.round(S.r80*100)+'% của mục tiêu đó ('+money(o.i80)+').</p></div></div>';
@@ -616,7 +621,7 @@ function listCust(){
 }
 function viewThu(){
   var FC=[['all','Tất cả'],['has','Đã thu'],['kỳ','Thu kỳ'],['qh','Thu quá hạn'],['tl','Thanh lý'],['px','Chỉ tính POS']];
-  view.innerHTML='<div class="sec"><div class="hero-d" id="sumThu"></div></div><div class="sec"><div class="kinds" id="kinds"></div></div><div class="sec">'+compHTML()+'</div><div class="sec">'+
+  view.innerHTML='<div class="sec"><div class="kinds" id="kinds"></div></div><div class="sec">'+compHTML()+'</div><div class="sec">'+
    '<div class="srch">'+svg(IC.se)+'<input type="search" id="q" placeholder="Tìm khách hàng" value="'+esc(qCust)+'" aria-label="Tìm khách hàng"></div>'+
    '<div class="seg chips" style="margin:10px 0">'+FC.map(function(f){return '<button type="button" data-fc="'+f[0]+'" aria-pressed="'+(fCust===f[0])+'">'+f[1]+'</button>'}).join('')+'</div>'+
    '<div id="list">'+listCust()+'</div></div>';
@@ -699,20 +704,20 @@ function viewSet(){
    '<div class="grid2"><label class="f">Họ tên<input type="text" data-pf="name" autocomplete="off" value="'+esc(pf.name)+'"></label><label class="f">Chức danh<input type="text" data-pf="role" autocomplete="off" value="'+esc(pf.role)+'"></label>'+
    '<label class="f">Mã nhân viên<input type="text" data-pf="code" autocomplete="off" value="'+esc(pf.code)+'"></label><label class="f">Chi nhánh<input type="text" data-pf="branch" autocomplete="off" value="'+esc(pf.branch)+'"></label></div>'+
    '<p class="mini" style="margin:0">Chỉ lưu trên máy này, không gửi lên Google Sheet.</p></div></div>';
-  var syncSec='<div class="sec"><h2>Đồng bộ Google Sheet</h2><div class="card" style="display:grid;gap:8px">'+
+  var syncSec='<div class="sec"><div class="card"><details id="syout"><summary>Đồng bộ Google Sheet</summary><div style="display:grid;gap:8px">'+
    '<div class="srow"><div style="min-width:0"><b>Trạng thái</b><div class="mini" id="sy-state"></div></div><button class="btn pri sm" type="button" data-act="syncnow">Đồng bộ ngay</button></div>'+
    '<details class="inner" id="syset"'+(cfg.url?'':' open')+'><summary>Địa chỉ Web App và mật khẩu</summary><div style="display:grid;gap:10px">'+
    '<p class="mini" style="margin:0">Hai chiều, khoảng 10 đến 15 giây khi có mạng. Dán địa chỉ Web App của Apps Script và mật khẩu đã đặt trong Code.gs.</p>'+
    '<label class="f">Địa chỉ Web App<input type="text" id="sy-url" inputmode="url" autocapitalize="off" autocorrect="off" placeholder="https://script.google.com/macros/s/…/exec" value="'+esc(cfg.url)+'"></label>'+
    '<label class="f">Mật khẩu<input type="text" id="sy-token" autocapitalize="off" autocorrect="off" value="'+esc(cfg.token)+'"></label>'+
-   '<div class="grid2"><button class="btn pri" type="button" data-act="sysave">Lưu và đồng bộ</button><button class="btn" type="button" data-act="syoff">Ngắt kết nối</button></div></div></details></div></div>';
+   '<div class="grid2"><button class="btn pri" type="button" data-act="sysave">Lưu và đồng bộ</button><button class="btn" type="button" data-act="syoff">Ngắt kết nối</button></div></div></details></div></details></div></div>';
   view.innerHTML=prof+syncSec+
    '<div class="sec"><h2>Tháng này</h2><div class="card" style="display:grid;gap:10px">'+
    '<label class="f">Tên tháng<input type="text" id="set-month" data-set="month" value="'+esc(S.month)+'"></label>'+
    '<div class="grid2">'+setRow('Target tiền NON (đ)','set-tNON',grp(S.tNON),'data-m="1"')+setRow('Target tiền COF (đ)','set-tCOF',grp(S.tCOF),'data-m="1"')+
    setRow('Target NTU (bộ)','set-tNTU',S.tNTU)+setRow('NTU CIC OK (bộ)','set-ntuOK',S.ntuOK)+
    '</div></div></div>'+
-   '<div class="sec"><h2>Chính sách KPI và thuế</h2><div class="card"><details open><summary>Bảng hệ số (chỉ xem)</summary><div class="scroll"><table><tr><th>Kiểu thu</th><th>COF</th><th>NON</th></tr>'+
+   '<div class="sec"><h2>Chính sách KPI và thuế</h2><div class="card"><details><summary>Bảng hệ số (chỉ xem)</summary><div class="scroll"><table><tr><th>Kiểu thu</th><th>COF</th><th>NON</th></tr>'+
    KINDS.map(function(k){return '<tr><td>'+kindLabel(k[0])+'</td><td>'+dec(k[1])+'</td><td>'+dec(k[2])+'</td></tr>'}).join('')+'<tr><td>Ngoại lệ</td><td colspan="2">tự nhập khi thu thêm</td></tr></table></div>'+
    '<div class="grid2" style="margin-top:10px">'+setRow('Số người phụ thuộc','set-dep',S.dep)+setRow('BHXH, BHYT, BHTN trừ (đ)','set-bhxh',grp(S.bhxh),'data-m="1"')+setRow('Khoản cố định (đ)','set-fixed',grp(S.fixed),'data-m="1"')+'</div>'+
    '<div class="scroll" style="margin-top:10px"><table><tr><th>Tham số tính</th><th>Giá trị</th></tr>'+
@@ -725,10 +730,7 @@ function viewSet(){
    '<p class="mini">BẢNG 3 (tổng → bonus): '+B3.map(function(r){return pct(r[0],0)+'→'+pct(r[1],2)}).join(' · ')+'</p></details></div></div>'+
    '<div class="sec"><h2>Giao diện</h2><div class="seg"><button type="button" data-th="auto" aria-pressed="'+(mode==='auto')+'">Tự động</button><button type="button" data-th="light" aria-pressed="'+(mode==='light')+'">Sáng</button><button type="button" data-th="dark" aria-pressed="'+(mode==='dark')+'">Tối</button></div></div>'+
    '<div class="sec"><h2>Dữ liệu</h2><div class="card" style="display:grid;gap:10px">'+
-   '<div class="grid2"><button class="btn" data-act="dl" type="button">Tải file sao lưu</button><button class="btn" data-act="cp" type="button">Sao chép dữ liệu</button></div>'+
-   '<label class="f">Khôi phục: dán dữ liệu sao lưu vào đây<textarea id="imp" rows="3" style="font-family:var(--mono);font-size:13px"></textarea></label>'+
-   '<div class="grid2"><button class="btn" data-act="imp" type="button">Khôi phục</button><label class="btn" style="display:grid;place-items:center;text-align:center">Chọn file<input type="file" id="file" accept="application/json,.json" hidden></label></div>'+
-   '<hr style="border:0;border-top:1px solid var(--line);width:100%"><div class="grid2"><button class="btn" data-act="month" type="button" id="bMonth">Bắt đầu tháng mới</button><button class="btn danger" data-act="reset" type="button" id="bReset">Xóa tất cả</button></div>'+
+   '<div class="grid2"><button class="btn" data-act="month" type="button" id="bMonth">Bắt đầu tháng mới</button><button class="btn danger" data-act="reset" type="button" id="bReset">Xóa tất cả</button></div>'+
    '<p class="mini" style="margin:0">Tháng mới giữ tên khách và target, xóa số thu. Nếu đang đồng bộ, số thu trong Google Sheet cũng bị xóa theo. Nhấn hai lần để xác nhận. Dùng Hoàn tác ở đầu trang nếu lỡ tay.</p></div></div>'+
    '<p class="foot">KPI thu hồi nợ · giao diện v7</p>';
   var f=document.getElementById('file');if(f)f.addEventListener('change',function(){var r=new FileReader();r.onload=function(){doImport(String(r.result))};if(f.files[0])r.readAsText(f.files[0])});
